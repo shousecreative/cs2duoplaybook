@@ -111,7 +111,7 @@ hbird:[
 mitts:[
 {n:"B rush — smoke Van",s:[
 {t:"Sprint B Apps immediately. Do not stop.",g:"wait"},
-{t:"Smoke Van from inside Apps (aim at the corner of the Van roof).",g:"smoke"},
+{t:"Smoke Van from inside Apps (aim at the corner of the Van roof).",g:"smoke",img:"img/lineups/smoke/mirage-bench-van-t-apps.png",imgCaption:"Position|Underpass Post|Technique|Left Click|Movement|Stationary"},
 {t:"Call 'van smoked'. Wait for hbird's 'window smoked' before entering B.",g:"wait"},
 {t:"Enter B through Apps door on the left. hbird enters through the window (right)."},
 {t:"Post-plant: hold Van/Short side. hbird holds Market. Don't cross angles."}
@@ -643,10 +643,90 @@ mitts:[
 ]
 }
 }
+,cache:{
+t:{
+hbird:[
+{n:"A Main execute",s:[
+{t:"Smoke CT from T-spawn — aim at the top of the CT building from Main entrance.",g:"smoke"},
+{t:"Call 'CT smoked, going A Main'. Push Main with mitts behind you."},
+{t:"Mitts smokes Truck (back of A site) from inside Main. Wait for both smokes.",g:"wait"},
+{t:"Enter A site together. You clear Heaven side, mitts clears Truck/Ninja corner."},
+{t:"Plant default (center). Post-plant: you hold CT, mitts holds Main retake path."}
+]},
+{n:"Mid control → Catwalk → B",s:[
+{t:"Push mid from T-spawn toward Sun Room. Smoke Sun Room window to deny AWP.",g:"smoke"},
+{t:"Call 'sun smoked, taking mid'. Mitts pushes Checkers/Catwalk side."},
+{t:"Together take Catwalk control. Mitts smokes Ivy from Catwalk.",g:"wait"},
+{t:"Drop onto B site together. You enter from Catwalk, mitts enters from Squeaky."},
+{t:"Plant back-B (near Log). Watch Close corner on entry — most common CT hold."}
+]},
+{n:"B Squeaky rush",s:[
+{t:"Both sprint B Short to Squeaky at round start. Full commit, no smoke needed yet.",g:"wait"},
+{t:"Smoke Close corner from outside Squeaky (cuts the CT close-B angle).",g:"smoke"},
+{t:"Burst through Squeaky together. You go right (back-B), mitts goes left (close)."},
+{t:"Plant back-B near Log. Post-plant: you hold Catwalk, mitts holds Squeaky retake."}
+]}
+],
+mitts:[
+{n:"A Main execute",s:[
+{t:"Follow hbird to Main. Watch the Quad boxes angle — common CT early peek.",g:"wait"},
+{t:"Smoke Truck from inside Main (aim at the back-right corner of A site).",g:"smoke"},
+{t:"Wait for hbird's 'CT smoked' before pushing into site.",g:"wait"},
+{t:"Enter A site. Clear Ninja corner (tight CT spot near CT entry) immediately."},
+{t:"Call 'ninja clear' or 'ninja CT' — most dangerous spot on A for a retake."}
+]},
+{n:"Mid control → Catwalk → B",s:[
+{t:"Push Checkers then up to Catwalk while hbird controls Sun Room.",g:"wait"},
+{t:"Smoke Ivy from Catwalk (blocks CT rotating from B-CT to B site).",g:"smoke"},
+{t:"Call 'ivy smoked'. Wait for hbird's 'sun smoked' before entering B.",g:"wait"},
+{t:"Enter B through Squeaky. hbird drops from Catwalk. Two angles at once."},
+{t:"Call 'in site' when you touch B. Plant near Log — best post-plant cover."}
+]},
+{n:"B Squeaky rush",s:[
+{t:"Sprint B Short with hbird immediately. Don't slow down.",g:"wait"},
+{t:"Flash Squeaky entrance as you run in (cook 1s, throw at the door frame).",g:"smoke"},
+{t:"Enter B left side (Close corner). hbird goes right to back-B."},
+{t:"Call 'in site'. Plant back-B. Watch Catwalk — fastest CT rotation onto B."}
+]}
+]
+},
+ct:{
+hbird:[
+{n:"A anchor — Heaven hold",s:[
+{t:"Start Heaven (elevated above A site). Covers Main AND CT entry simultaneously.",g:"wait"},
+{t:"Smoke Main choke if Ts rush A Main early and hard.",g:"smoke"},
+{t:"Call A info every 15s: 'two main' / 'quad boost' / 'A quiet'."},
+{t:"Rotate A to B only on mitts' 'B going' call. Heaven is too strong to leave early.",g:"wait"},
+{t:"Retake A: drop from Heaven onto site. Mitts enters from CT side."}
+]},
+{n:"Mid Sun Room aggression",s:[
+{t:"Rifle rounds: take Sun Room early for mid info. One peek, fall back.",g:"wait"},
+{t:"Smoke Checkers if Ts are taking mid control fast.",g:"smoke"},
+{t:"Call 'mid taken' / 'catwalk player' / 'mid clear'. Return to Heaven anchor.",g:"wait"},
+{t:"Mid info tells mitts whether B pressure is coming via Catwalk or Squeaky."}
+]}
+],
+mitts:[
+{n:"B anchor — Close hold",s:[
+{t:"Hold Close corner on B (the tight angle near Squeaky entrance). Best CT B spot.",g:"wait"},
+{t:"Smoke Squeaky from inside B if Ts rush and you're alone.",g:"smoke"},
+{t:"Call B info every 15s: 'squeaky sound' / 'two B short' / 'B quiet'."},
+{t:"Rotate to A only on hbird's 'A going' call. Close corner wins 1v1s constantly.",g:"wait"},
+{t:"Retake B: hold Close, let hbird come from Catwalk for crossfire."}
+]},
+{n:"Catwalk early peek",s:[
+{t:"Rifle rounds: push Catwalk from CT for early mid info.",g:"wait"},
+{t:"Smoke Ivy if Ts take Catwalk control and are dropping to B.",g:"smoke"},
+{t:"Call 'catwalk taken' / 'ivy pressure' / 'mid clear'. Fall back to Close.",g:"wait"},
+{t:"Your Catwalk info is hbird's trigger for every rotation call on Cache."}
+]}
+]
+}
+}
 };
 
-var maps=['mirage','inferno','nuke','ancient','dust2','overpass','anubis'];
-var ml={mirage:'Mirage',inferno:'Inferno',nuke:'Nuke',ancient:'Ancient',dust2:'Dust 2',overpass:'Overpass',anubis:'Anubis'};
+var maps=['mirage','inferno','nuke','ancient','dust2','overpass','anubis','cache'];
+var ml={mirage:'Mirage',inferno:'Inferno',nuke:'Nuke',ancient:'Ancient',dust2:'Dust 2',overpass:'Overpass',anubis:'Anubis',cache:'Cache'};
 function setP(p){pl=p;document.getElementById('bh').className='pbtn'+(p==='hbird'?' ph':'');document.getElementById('bm').className='pbtn'+(p==='mitts'?' pm':'');render();}
 function setM(m){mp=m;document.querySelectorAll('.mbtn').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});render();}
 function setS(s){sd=s;document.getElementById('bt').className='sbtn'+(s==='t'?' st':'');document.getElementById('bc').className='sbtn'+(s==='ct'?' sc':'');render();}
