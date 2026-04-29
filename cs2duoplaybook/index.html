@@ -52,6 +52,17 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
 .tsmoke{background:var(--smoke-bg);color:var(--smoke);border:1px solid var(--smoke-bd)}
 .twait{background:var(--wait-bg);color:var(--wait);border:1px solid var(--wait-bd)}
 .empty{text-align:center;color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.08em;padding:28px 0}
+
+.lineup-btn{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:10px;padding:1px 7px;border-radius:2px;margin-left:6px;vertical-align:middle;letter-spacing:.04em;cursor:pointer;background:#0d1f2d;color:#4a90d9;border:1px solid #1e3d6e;transition:all .12s}
+.lineup-btn:hover{background:#1a3a5c}
+.lineup-wrap{margin-top:10px;display:none;flex-direction:column;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px}
+.lineup-wrap.open{display:flex}
+.lineup-img{width:100%;max-width:500px;border-radius:5px;border:1px solid var(--border);display:block;cursor:zoom-in;transition:max-width .2s}
+.lineup-img.zoomed{max-width:100%;cursor:zoom-out}
+.lineup-steps{display:flex;flex-direction:column;gap:14px;padding:4px 0}
+.lineup-step{display:flex;flex-direction:column;gap:3px}
+.ls-label{font-family:'Barlow',sans-serif;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.ls-val{font-family:'Barlow',sans-serif;font-size:18px;font-weight:700;color:#e8eaf0;line-height:1.2}
 </style>
 </head>
 <body>
@@ -60,7 +71,7 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font
   <div class="hdr-title"><span class="h">hbird</span> &amp; <span class="m">mitts</span> — duo playbook</div>
 </div>
 <div class="pgrid">
-  <button class="pbtn ph" id="bh" onclick="setP('hbird')">hbird</button>
+  <button class="pbtn ph" id="bh" onclick="setP('hbird')">hbird (you)</button>
   <button class="pbtn" id="bm" onclick="setP('mitts')">mitts</button>
 </div>
 <div class="mbar" id="mr"></div>
@@ -76,7 +87,7 @@ mirage:{
 t:{
 hbird:[
 {n:"B rush — smoke Market Window",s:[
-{t:"Jump-throw smoke Market Window from T-spawn boxes (aim at top of the antenna).",g:"smoke"},
+{t:"Jump-throw smoke Market Window from T-spawn boxes (aim at top of the antenna).",g:"smoke",img:"img/lineups/smoke/mirage-market-window-t-apps.png",imgCaption:"Position|T-Apps boxes corner|Technique|Jump + Left Click|Movement|Stationary"},
 {t:"Call 'window smoked' then sprint B Apps with mitts. Full commit, no slowing."},
 {t:"Enter Apps window into B (right side). Mitts goes through the Apps door (left).",g:"wait"},
 {t:"Mitts' Van smoke cuts Short CT angle. Plant back-B behind the boxes."},
@@ -651,10 +662,28 @@ function render(){
   el.innerHTML=plays.map(function(play,pi){
     var steps=play.s.map(function(s,i){
       var tag=s.g==='smoke'?'<span class="tag tsmoke">SMOKE</span>':s.g==='wait'?'<span class="tag twait">WAIT</span>':'';
-      return '<div class="step"><div class="snum '+nc+'">'+(i+1)+'</div><div class="stxt">'+s.t+tag+'</div></div>';
+      var lineupHtml='';
+      if(s.img){
+        var uid='lu-'+mp+'-'+sd+'-'+pk+'-'+pi+'-'+i;
+        var parts=s.imgCaption.split('|');
+        var stepsHtml='<div class="lineup-steps">';
+        for(var k=0;k<parts.length;k+=2){
+          stepsHtml+='<div class="lineup-step"><span class="ls-label">'+parts[k]+'</span><span class="ls-val">'+( parts[k+1]||'')+'</span></div>';
+        }
+        stepsHtml+='</div>';
+        lineupHtml='<span class="lineup-btn" onclick="toggleLineup(\''+uid+'\')">'+'LINEUP</span><div class="lineup-wrap" id="'+uid+'"><img class="lineup-img" src="'+s.img+'" alt="Smoke lineup" onclick="toggleZoom(this)">'+stepsHtml+'</div>';
+      }
+      return '<div class="step"><div class="snum '+nc+'">'+(i+1)+'</div><div class="stxt">'+s.t+tag+lineupHtml+'</div></div>';
     }).join('');
     return '<div class="plabel">play '+(pi+1)+'</div><div class="pcard"><div class="pname '+nclass+'">'+play.n+'</div><div class="steps">'+steps+'</div></div>';
   }).join('');
+}
+function toggleLineup(id){
+  var el=document.getElementById(id);
+  if(el)el.classList.toggle('open');
+}
+function toggleZoom(img){
+  img.classList.toggle('zoomed');
 }
 render();
 </script>
